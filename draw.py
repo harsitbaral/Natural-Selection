@@ -2,7 +2,7 @@ import turtle
 import random
 import time
 
-# from main import *
+import main
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 675
@@ -19,6 +19,7 @@ grid.shape('square')
 grid.color('white')
 grid.speed(0)
 grid.hideturtle()
+grid_size = 100
 
 
 def square():
@@ -85,7 +86,7 @@ class Sprite:
         elif selected_function == "move_downright":
             sprite.move_downleft()
         else:
-            selected_function = random.choice(["move_up", "move_down", "move_left", "move_right", "move_upright", "move_upleft", "move_downleft", "move_downright"])
+            pass
 
     def render(self, pen):
         pen.goto(self.x, self.y)
@@ -126,8 +127,10 @@ class Sprite:
 thing_one = Sprite(0, 0, 'turtle', 'white', 'dead')
 
 sprites = []
-sprites.append(thing_one)
+sprites.append(thing_one) # TODO Implement this with main
 
+for i in range(main.number_of_animals):
+    pass
 
 while True:
 

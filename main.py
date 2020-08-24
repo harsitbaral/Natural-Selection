@@ -1,6 +1,26 @@
 import random
 import draw
+from datetime import datetime, timedelta
+import scipy.stats
+import numpy as np
 
+number_of_animals = int(input('Enter the number of animals: '))
+
+starting_food_range = int(input("Starting food range:"))
+ending_food_range = int(input("\nEnding food range: "))
+
+number_of_food = random.randint(starting_food_range, ending_food_range)
+
+animal_x = 0
+animal_y = 0
+animal_energy = 0
+animal_speed = 1
+animal_e_consump = 0  # Round it
+animal_sight = 1
+generation = 1
+animal_color = ""
+animal_shape = ""
+animals = []
 
 class GridX:
     def __init__(self, x, number):
@@ -18,39 +38,34 @@ class GridY:
 
 
 class Animal:
-    def __init__(self, x, y, energy, e_consump, speed, sight, color, shape):
+    def __init__(self, x, y, speed, sight, color, shape):
         self.speed(0)
         self.x = x
         self.y = y
-        self.energy = energy
-        self.e_consump = e_consump
+        self.energy = 0
+        self.e_consump = 0
         self.speed = speed
         self.sight = sight
-
+        self.state = 'n'
+        self.color = color
+        self.shape = shape
+        # n = none, d = dead, r = reproducing, a = alive
+    def move(self):
+        pass
 
 class Food:
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
+def create_bell_curve(start, end):
+    # Start at length/2 - 1 tenth of length
+    mean = end/2
+    standard_deviation = 1
 
-number_of_animals = int(input('Enter the number of animals: '))
-
-starting_food_range = int(input("Starting food range:"))
-ending_food_range = int(input("\nEnding food range: "))
-
-number_of_food = random.randint(starting_food_range, ending_food_range)
-
-# animals = {}
-animal_x = 0
-animal_y = 0
-animal_energy = 0
-animal_speed = 1
-animal_e_consump = 0  # Round it
-animal_sight = 1
-generation = 1
-animal_color = ""
-animal_shape = ""
+    x_values = np.arange(start, end, 1)
+    y_values = scipy.stats.norm(mean, standard_deviation)
+    return y_values.pdf(x_values)
 
 
 def InitalizeAnimals():
@@ -58,20 +73,36 @@ def InitalizeAnimals():
         animal_x = random.randint(0, draw.grid_size)
         animal_y = random.randint(0, draw.grid_size)
         animal_e_consump = (animal_speed + animal_sight) ** 1.5
-        animal = Animal(animal_x, animal_y, animal_energy, animal_e_consump,
-                        animal_speed, animal_sight, animal_color, animal_shape)
-        # animals.append(f"animal{i}")
+        animal = Animal(animal_x, animal_y, animal_speed, animal_sight, animal_color, animal_shape)
+        animal_sprite = draw.Sprite(animal_x, animal_y, 'turtle', animal_color, )
+        animals.append(animal)
+        # Render the animal
 
+def move_animals():
+    for animal in animals: # TODO Change this to a timer
+        # Move animal
+        draw.Sprite
+        pass
 
 def NewRound():
     InitalizeAnimals()
+    move_animals()
 
 
-def Reproduce(animal, generation):
+def Reproduce(animal):
+    global generation
     generation += 1
     # The speed is on a bell curve based on its parents speed
+    speed_curve = create_bell_curve(animal.speed, animal.speed * 1.5)
     # Same with sight
+    sight_curve = create_bell_curve(animal.sight, animal.sight * 2)
 
+    speed = random.choice(speed_curve) / 20
+    sight = random.choice(sight_curve) / 20
+
+    animal = Animal(animal_x, animal_y, speed, sight, animal_color, animal_shape)
+
+    return animal
 
 def Die():
     pass
