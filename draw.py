@@ -2,8 +2,6 @@ import turtle
 import random
 import time
 
-import main
-
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 675
 
@@ -70,21 +68,21 @@ class Sprite:
         selected_function = random.choice(["move_up", "move_down", "move_left", "move_right", "move_upright", "move_upleft", "move_downleft", "move_downright"])
 
         if selected_function == "move_up":
-            sprite.move_up()
+            self.move_up()
         elif selected_function == "move_down":
-            sprite.move_down()
+            self.move_down()
         elif selected_function == "move_left":
-            sprite.move_left()
+            self.move_left()
         elif selected_function == "move_right":
-            sprite.move_right()
+            self.move_right()
         elif selected_function == "move_upright":
-            sprite.move_upright()
+            self.move_upright()
         elif selected_function == "move_upleft":
-            sprite.move_upleft()
+            self.move_upleft()
         elif selected_function == "move_downleft":
-            sprite.move_downleft()
+            self.move_downleft()
         elif selected_function == "move_downright":
-            sprite.move_downleft()
+            self.move_downleft()
         else:
             pass
 
@@ -127,17 +125,8 @@ class Sprite:
 thing_one = Sprite(0, 0, 'turtle', 'white', 'dead')
 
 sprites = []
-sprites.append(thing_one) # TODO Implement this with main
 
-for i in range(main.number_of_animals):
-    pass
-
-while True:
-
-    time.sleep(0.5)
-
-    pen.clear()
-
+def move_sprites():
     for sprite in sprites:
         sprite.render(pen)
         sprite.update()
