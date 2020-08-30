@@ -5,37 +5,14 @@ import time
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 675
 
+grid_size = 100
+
 # Screen Setup
 wn = turtle.Screen()
 wn.tracer(0)
 wn.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
 wn.bgcolor('black')
 wn.title('Natural Selection Simulator')
-
-grid = turtle.Turtle()
-grid.shape('square')
-grid.color('white')
-grid.speed(0)
-grid.hideturtle()
-grid_size = 100
-
-
-def square():
-    x = 0
-    y = 0
-    for i in range(10):
-        grid.forward(50)
-        grid.left(90)
-        grid.forward(50)
-        grid.left(90)
-        grid.forward(50)
-        grid.left(90)
-        grid.forward(50)
-        grid.left(90)
-        grid.goto(50 + x, 0)
-    grid.goto(0, -50)
-    grid.right(90)
-
 
 legend = turtle.Turtle()
 legend.speed(0)
@@ -53,8 +30,13 @@ pen.color('white')
 pen.penup()
 pen.hideturtle()
 
+food_pen = turtle.Turtle()
+food_pen.speed(0)
+food_pen.shape('square')
+food_pen.color('green')
+food_pen.penup()
 
-class Sprite:
+class AnimalSprite:
     def __init__(self, x, y, shape, color, state):
         self.shapesizex = 0.5
         self.shapesizey = 0.5
@@ -121,14 +103,32 @@ class Sprite:
         self.move_down()
         self.move_left()
 
+class FoodSprite:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
-thing_one = Sprite(0, 0, 'turtle', 'white', 'dead')
+    def render(self, pen):
+        pen.goto(self.x, self.y)
+        pen.shapesize(1, 1)
+        pen.stamp()
 
-sprites = []
+animal_sprites = []
+food_sprites = []
 
 def move_sprites():
-    for sprite in sprites:
+    pen.clear()
+    time.sleep(0.1)
+    for sprite in animal_sprites:
         sprite.render(pen)
         sprite.update()
+
+    wn.update()
+
+def render_food():
+    food_pen.clear()
+
+    for food_piece in food_sprites:
+        food_piece.render(food_pen)
 
     wn.update()

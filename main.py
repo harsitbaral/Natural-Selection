@@ -27,21 +27,7 @@ animal_color = "white"
 animal_shape = "turtle"
 animal_state = ""
 animals = []
-
-class GridX:
-    def __init__(self, x, number):
-        self.x = x
-        self.number = number
-
-    def Render(self):
-        pass
-
-
-class GridY:
-    def __init__(self, y, number):
-        self.y = y
-        self.number = number
-
+food_pieces = []
 
 class Animal:
     def __init__(self, x, y, speed, sight, color, shape):
@@ -58,9 +44,10 @@ class Animal:
         # n = none, d = dead, r = reproducing, a = alive
 
 class Food:
-    def __init__(self, x, y):
+    def __init__(self, x, y, colour):
         self.x = x
         self.y = y
+        self.colour = colour
 
 # def create_bell_curve(start, end):
 #     # Start at length/2 - 1 tenth of length
@@ -81,8 +68,20 @@ def InitalizeAnimals():
         animal = Animal(animal_x, animal_y, animal_speed, animal_sight, animal_color, animal_shape)
 
         animals.append(animal)
-        animal = draw.Sprite(animal_x, animal_y, animal_shape, animal_color, animal_state)
-        draw.sprites.append(animal)
+        animal = draw.AnimalSprite(animal_x, animal_y, animal_shape, animal_color, animal_state)
+        draw.animal_sprites.append(animal)
+
+def InitializeFood():
+    for i in range(number_of_food):
+        food_x = random.randint(0, draw.grid_size)
+        food_y = random.randint(0, draw.grid_size)
+        food_colour = "red"
+
+        new_food = Food(food_x, food_y, food_colour)
+        food_pieces.append(new_food)
+        new_food = draw.FoodSprite(food_x, food_x, food_colour)
+        draw.food_sprites.append(new_food)
+    draw.render_food()
 
 def move_animals():
     for i in range(100000): # TODO Change this to a timer
