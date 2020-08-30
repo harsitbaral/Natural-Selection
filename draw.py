@@ -74,6 +74,7 @@ class AnimalSprite:
         pen.color(self.color)
         pen.shapesize(self.shapesizex, self.shapesizey)
         pen.stamp()
+        
 
     def move_up(self):
         self.y += 10
@@ -103,19 +104,6 @@ class AnimalSprite:
         self.move_down()
         self.move_left()
 
-class FoodSprite(Sprite):
-    def __init__(self, x, y, shape, color):
-        self.x = x
-        self.y = y
-        self.shape = shape
-        self.color = color
-
-    def render(self, pen):
-        pen.goto(self.x, self.y)
-        pen.shapesize(0.5, 0.5)
-        pen.shape(self.shape)
-        pen.color(self.color)
-        pen.stamp()
 
 animal_sprites = []
 food_sprites = []
