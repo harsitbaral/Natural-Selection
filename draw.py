@@ -48,12 +48,12 @@ class AnimalSprite:
 
     def update(self):
 
-        boundry = 0
+        boundary = 0
 
 
 
 
-        if boundry == 0:
+        if boundary == 0:
             selected_function = random.choice(["move_up", "move_down", "move_left", "move_right", "move_upright", "move_upleft", "move_downleft", "move_downright"])
 
             if selected_function == "move_up":
@@ -74,13 +74,121 @@ class AnimalSprite:
                 self.move_downright()
             else:
                 pass
-        elif boundry == 1:
+        elif boundary == 1:
             selected_function = random.choice(["move_down","move_left", "move_right", "move_downleft","move_downright"])
 
             if selected_function == "move_down":
                 self.move_down()
             elif selected_function == "move_left":
-                self.move_left
+                self.move_left()
+            elif selected_function == "move_right":
+                self.move_right()
+            elif selected_function == "move_downleft":
+                self.move_downleft()
+            elif selected_function == "move_downright":
+                self.move_downright()
+            else:
+                pass
+        elif boundary == 2:
+            selected_function = random.choice(["move_up", "move_left", "move_right", "move_upright", "move_upleft"])
+
+            if selected_function == "move_up":
+                self.move_up()
+            elif selected_function == "move_left":
+                self.move_left()
+            elif selected_function == "move_right":
+                self.move_right()
+            elif selected_function == "move_upright":
+                self.move_upright()
+            elif selected_function == "move_upleft":
+                self.move_upleft()
+            else:
+                pass
+        elif boundary == 3:
+            selected_function = random.choice(["move_up", "move_down", "move_right", "move_upright", "move_downright"])
+
+            if selected_function == "move_up":
+                self.move_up()
+            elif selected_function == "move_down":
+                self.move_down()
+            elif selected_function == "move_right":
+                self.move_right()
+            elif selected_function == "move_upright":
+                self.move_upright()
+            elif selected_function == "move_downright":
+                self.move_downright()
+            else:
+                pass
+        elif boundary == 4:
+            selected_function = random.choice(["move_up", "move_down", "move_left", "move_upleft", "move_downleft"])
+
+            if selected_function == "move_up":
+                self.move_up()
+            elif selected_function == "move_down":
+                self.move_down()
+            elif selected_function == "move_left":
+                self.move_left()
+            elif selected_function == "move_upleft":
+                self.move_upleft()
+            elif selected_function == "move_downleft":
+                self.move_downleft()
+            else:
+                pass
+        elif boundary == 5:
+            selected_function = random.choice(["move_down", "move_right", "move_downright"])
+
+            if selected_function == "move_down":
+                self.move_down()
+            elif selected_function == "move_right":
+                self.move_right()
+            elif selected_function == "move_downright":
+                self.move_downright()
+            else:
+                pass
+        elif boundary == 6:
+            selected_function = random.choice(["move_down", "move_left", "move_downleft"])
+
+            if selected_function == "move_down":
+                self.move_down()
+            elif selected_function == "move_left":
+                self.move_left()
+            elif selected_function == "move_downleft":
+                self.move_downleft()
+            else:
+                pass
+        elif boundary == 7:
+            selected_function = random.choice(["move_up", "move_right", "move_upright"])
+
+            if selected_function == "move_up":
+                self.move_up()
+            elif selected_function == "move_right":
+                self.move_right()
+            elif selected_function == "move_upright":
+                self.move_upright()
+            else:
+                pass
+        elif boundary == 8:
+            selected_function = random.choice(["move_up", "move_left", "move_upleft"])
+
+            if selected_function == "move_up":
+                self.move_up()
+            elif selected_function == "move_left":
+                self.move_left()
+            elif selected_function == "move_upleft":
+                self.move_upleft()
+            else:
+                pass
+        else:
+            pass
+
+    def render(self, pen):
+        pen.goto(self.x, self.y)
+        pen.shape(self.shape)
+        pen.color(self.color)
+        pen.shapesize(self.shapesizex, self.shapesizey)
+        pen.stamp()
+
+
 
 
     def move_up(self):
