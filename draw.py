@@ -2,6 +2,7 @@ import turtle
 import random
 import time
 
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 800
 
@@ -13,6 +14,15 @@ wn.tracer(0)
 wn.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
 wn.bgcolor('black')
 wn.title('Natural Selection Simulator')
+
+bound = turtle.Turtle()
+bound.speed(0)
+bound.shape("circle")
+bound.color("white")
+bound.penup()
+bound.goto(-360, 360)
+bound.hideturtle()
+
 
 legend = turtle.Turtle()
 legend.speed(0)
@@ -36,6 +46,13 @@ food_pen.shape('square')
 food_pen.color('green')
 food_pen.penup()
 
+def draw_boundaries():
+    bound.pendown()
+    bound.goto(360, 360)
+    bound.goto(360, -360)
+    bound.goto(-360, -360)
+    bound.goto(-360, 360)
+
 class AnimalSprite:
     def __init__(self, x, y, shape, color, state):
         self.shapesizex = 0.5
@@ -45,15 +62,31 @@ class AnimalSprite:
         self.shape = shape
         self.color = color
         self.state = state
+        self.boundary = 0
 
     def update(self):
 
-        boundary = 0
+        if self.y > 50:
+            self.boundary == 1
+        elif self.y < -50:
+            self.boundary == 2
+        elif self.x < -50:
+            self.boundary == 3
+        elif self.x > 50:
+            self.boundary == 4
+        elif self.x < -50 and self.y > 50:
+            self.boundary == 5
+        elif self.x > 50 and self.y > 50:
+            self.boundary == 6
+        elif self.x < -50 and self.y < -50:
+            self.boundary == 7
+        elif self.x > 50 and self.y < -50:
+            self.boundary == 8
+        else:
+            self.boundary == 0
 
 
-
-
-        if boundary == 0:
+        if self.boundary == 0:
             selected_function = random.choice(["move_up", "move_down", "move_left", "move_right", "move_upright", "move_upleft", "move_downleft", "move_downright"])
 
             if selected_function == "move_up":
@@ -74,7 +107,7 @@ class AnimalSprite:
                 self.move_downright()
             else:
                 pass
-        elif boundary == 1:
+        elif self.boundary == 1:
             selected_function = random.choice(["move_down","move_left", "move_right", "move_downleft","move_downright"])
 
             if selected_function == "move_down":
@@ -89,7 +122,7 @@ class AnimalSprite:
                 self.move_downright()
             else:
                 pass
-        elif boundary == 2:
+        elif self.boundary == 2:
             selected_function = random.choice(["move_up", "move_left", "move_right", "move_upright", "move_upleft"])
 
             if selected_function == "move_up":
@@ -104,7 +137,7 @@ class AnimalSprite:
                 self.move_upleft()
             else:
                 pass
-        elif boundary == 3:
+        elif self.boundary == 3:
             selected_function = random.choice(["move_up", "move_down", "move_right", "move_upright", "move_downright"])
 
             if selected_function == "move_up":
@@ -119,7 +152,7 @@ class AnimalSprite:
                 self.move_downright()
             else:
                 pass
-        elif boundary == 4:
+        elif self.boundary == 4:
             selected_function = random.choice(["move_up", "move_down", "move_left", "move_upleft", "move_downleft"])
 
             if selected_function == "move_up":
@@ -134,7 +167,7 @@ class AnimalSprite:
                 self.move_downleft()
             else:
                 pass
-        elif boundary == 5:
+        elif self.boundary == 5:
             selected_function = random.choice(["move_down", "move_right", "move_downright"])
 
             if selected_function == "move_down":
@@ -145,7 +178,7 @@ class AnimalSprite:
                 self.move_downright()
             else:
                 pass
-        elif boundary == 6:
+        elif self.boundary == 6:
             selected_function = random.choice(["move_down", "move_left", "move_downleft"])
 
             if selected_function == "move_down":
@@ -156,7 +189,7 @@ class AnimalSprite:
                 self.move_downleft()
             else:
                 pass
-        elif boundary == 7:
+        elif self.boundary == 7:
             selected_function = random.choice(["move_up", "move_right", "move_upright"])
 
             if selected_function == "move_up":
@@ -167,7 +200,7 @@ class AnimalSprite:
                 self.move_upright()
             else:
                 pass
-        elif boundary == 8:
+        elif self.boundary == 8:
             selected_function = random.choice(["move_up", "move_left", "move_upleft"])
 
             if selected_function == "move_up":
@@ -187,8 +220,6 @@ class AnimalSprite:
         pen.color(self.color)
         pen.shapesize(self.shapesizex, self.shapesizey)
         pen.stamp()
-
-
 
 
     def move_up(self):
@@ -230,7 +261,10 @@ def move_sprites():
         sprite.render(pen)
         sprite.update()
 
+    draw_boundaries()
+
     wn.update()
+
 
 def render_food():
     food_pen.clear()
