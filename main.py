@@ -44,10 +44,10 @@ class Animal:
         # n = none, d = dead, r = reproducing, a = alive
 
 class Food:
-    def __init__(self, x, y, colour):
+    def __init__(self, x, y, color):
         self.x = x
         self.y = y
-        self.colour = colour
+        self.color = color
 
 # def create_bell_curve(start, end):
 #     # Start at length/2 - 1 tenth of length
@@ -61,8 +61,9 @@ class Food:
 
 def InitalizeAnimals():
     for i in range(number_of_animals):
-        animal_x = random.randint(0, draw.grid_size)
-        animal_y = random.randint(0, draw.grid_size)
+        animal_x = 0
+        animal_y = 0
+
         animal_e_consump = (animal_speed + animal_sight) ** 1.5
 
         animal = Animal(animal_x, animal_y, animal_speed, animal_sight, animal_color, animal_shape)
@@ -75,11 +76,11 @@ def InitializeFood():
     for i in range(number_of_food):
         food_x = random.randint(0, draw.grid_size)
         food_y = random.randint(0, draw.grid_size)
-        food_colour = "red"
+        food_color = "red"
 
-        new_food = Food(food_x, food_y, food_colour)
+        new_food = Food(food_x, food_y, food_color)
         food_pieces.append(new_food)
-        new_food = draw.FoodSprite(food_x, food_x, food_colour)
+        new_food = draw.FoodSprite(food_x, food_x, "square", "green")
         draw.food_sprites.append(new_food)
     draw.render_food()
 
